@@ -79,7 +79,8 @@ const setAuthCookie = (res, token) => res.cookie('nc_token', token, { httpOnly: 
 
 function auth(required = true) {
   return (req, res, next) => {
-    const token = req.cookies.nc_token || (req.headers.authorization || '').replace('Bearer ', '');
+    const bearer = (req.headers.authorization || '').replace(/^Bearer\s+/i, '').trim();
+    const token = bearer || req.cookies.nc_token;
     if (!token) return required ? res.status(401).json({ error: 'Please sign in' }) : next();
     try {
       const p = jwt.verify(token, JWT_SECRET);
@@ -97,6 +98,27 @@ db.exec(`CREATE TABLE IF NOT EXISTS push_subs (id INTEGER PRIMARY KEY AUTOINCREM
 CREATE TABLE IF NOT EXISTS payments (id INTEGER PRIMARY KEY AUTOINCREMENT, appointment_id INTEGER NOT NULL, patient_id INTEGER NOT NULL, amount INTEGER NOT NULL, reference TEXT UNIQUE, status TEXT DEFAULT 'pending', provider TEXT, created_at INTEGER DEFAULT (strftime('%s','now')*1000));`);
 try { db.exec("ALTER TABLE appointments ADD COLUMN paid INTEGER DEFAULT 0"); } catch { }
 }
+
+// ---- ICE servers (STUN/TURN) for video calls. TURN is required on mobile/carrier-grade NAT.
+const STUN = [{ urls: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302', 'stun:stun.cloudflare.com:3478'] }];
+let iceCache = { at: 0, servers: null };
+app.get('/api/ice', async (req, res) => {
+  try {
+    if (Date.now() - iceCache.at < 10 * 60e3 && iceCache.servers) return res.json({ iceServers: iceCache.servers });
+    let servers = [...STUN];
+    if (process.env.METERED_API_KEY && process.env.METERED_DOMAIN) {
+      const r = await fetch(`https://${process.env.METERED_DOMAIN}/api/v1/turn/credentials?apiKey=${process.env.METERED_API_KEY}`);
+      if (r.ok) servers = servers.concat(await r.json());
+    } else if (process.env.TURN_URLS) {
+      servers.push({ urls: process.env.TURN_URLS.split(',').map(u => u.trim()), username: process.env.TURN_USERNAME, credential: process.env.TURN_CREDENTIAL });
+    } else {
+      // Open Relay Project public TURN (best effort, no key)
+      servers.push({ urls: ['turn:openrelay.metered.ca:80', 'turn:openrelay.metered.ca:443', 'turn:openrelay.metered.ca:443?transport=tcp', 'turns:openrelay.metered.ca:443?transport=tcp'], username: 'openrelayproject', credential: 'openrelayproject' });
+    }
+    iceCache = { at: Date.now(), servers };
+    res.json({ iceServers: servers });
+  } catch { res.json({ iceServers: STUN }); }
+});
 
 app.get('/api/health', (req, res) => res.json({ ok: true, ts: Date.now(), online: onlineUsers.size, uptime_s: Math.round(process.uptime()), persist: persist.status() }));
 
@@ -177,7 +199,7 @@ app.post('/api/auth/login', (req, res) => {
   setAuthCookie(res, sign(u));
   res.json({ user: safeUser(u), token: sign(u) });
 });
-app.post('/api/auth/logout', (req, res) => { res.clearCookie('nc_token'); res.json({ ok: true }); });
+app.post('/api/auth/logout', (req, res) => { res.clearCookie('nc_token', { httpOnly: true, sameSite: 'lax', secure: IS_PROD }); res.clearCookie('nc_token', { httpOnly: true, sameSite: 'none', secure: true }); res.json({ ok: true }); });
 app.get('/api/auth/me', auth(false), (req, res) => res.json({ user: safeUser(req.user) || null }));
 app.patch('/api/auth/me', auth(), (req, res) => {
   const allowed = ['name', 'phone', 'bio', 'specialty', 'fee', 'gender', 'dob', 'blood_group', 'allergies', 'lat', 'lng'];
@@ -403,7 +425,7 @@ wss.on('connection', (ws, req) => {
   // auth from cookie
   const cookie = Object.fromEntries((req.headers.cookie || '').split(';').map(c => c.trim().split('=').map(decodeURIComponent)).filter(x => x[0]));
   const url = new URL(req.url, 'http://x');
-  const token = cookie.nc_token || url.searchParams.get('token');
+  const token = url.searchParams.get('token') || cookie.nc_token;
   let user = null;
   try { user = db.prepare('SELECT * FROM users WHERE id=?').get(jwt.verify(token, JWT_SECRET).id); } catch { }
   if (!user) { ws.close(4001, 'unauthorized'); return; }
