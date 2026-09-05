@@ -1,0 +1,19 @@
+# One-click Render Blueprint (FREE tier). You will be asked for just two values: the Turso URL and token.
+services:
+  - type: web
+    name: nducare-api
+    runtime: node
+    region: frankfurt
+    plan: free
+    buildCommand: npm ci
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_PATH
+        value: /tmp/nducare.db
+      - key: TURSO_DATABASE_URL
+        sync: false
+      - key: TURSO_AUTH_TOKEN
+        sync: false
