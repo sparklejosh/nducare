@@ -118,15 +118,19 @@ function seed() {
 }
 
 function seedFacilities() {
-  const count = db.prepare('SELECT COUNT(*) c FROM facilities').get().c;
-  if (count > 0) return;
+  // Upsert-by-name: new facilities added to data/facilities.json appear after a redeploy,
+  // even on databases that were seeded earlier (e.g. Render + Turso snapshots).
   const file = path.join(__dirname, 'data', 'facilities.json');
   if (!fs.existsSync(file)) return;
   const rows = JSON.parse(fs.readFileSync(file, 'utf8'));
+  const existing = new Set(db.prepare('SELECT lower(name) n FROM facilities').all().map(r => r.n));
   const ins = db.prepare(`INSERT INTO facilities (type,name,address,area,phone,lat,lng,services,rating,hours,accreditation)
     VALUES (@type,@name,@address,@area,@phone,@lat,@lng,@services,@rating,@hours,@accreditation)`);
-  const tx = db.transaction(() => rows.forEach(r => ins.run({ ...r, services: JSON.stringify(r.services) })));
+  const fresh = rows.filter(r => !existing.has(String(r.name).toLowerCase()));
+  if (!fresh.length) return;
+  const tx = db.transaction(() => fresh.forEach(r => ins.run({ phone: '', ...r, services: JSON.stringify(r.services) })));
   tx();
+  console.log(`Seeded ${fresh.length} new facilities`);
 }
 
 seed();

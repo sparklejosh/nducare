@@ -17,3 +17,7 @@ services:
         sync: false
       - key: TURSO_AUTH_TOKEN
         sync: false
+      - key: METERED_DOMAIN
+        sync: false
+      - key: METERED_API_KEY
+        sync: false

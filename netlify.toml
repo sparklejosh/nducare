@@ -1,11 +1,16 @@
+# NduCare frontend on Netlify. The Node backend runs elsewhere (Render/Fly) — see EASY.md.
 [build]
   publish = "public"
+  # No build step. `true` always succeeds.
   command = "true"
 
 [build.environment]
+  # Skip npm install: package.json is for the backend (native modules) and must not be built on Netlify.
+  NETLIFY_USE_YARN = "false"
   NPM_FLAGS = "--version"
   NODE_VERSION = "20"
 
+# SPA: every route serves index.html (the app router takes over)
 [[redirects]]
   from = "/*"
   to = "/index.html"
@@ -15,3 +20,12 @@
   for = "/sw.js"
   [headers.values]
     Cache-Control = "no-cache"
+    Service-Worker-Allowed = "/"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(self), microphone=(self), geolocation=(self)"
