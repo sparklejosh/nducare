@@ -120,9 +120,11 @@ function seed() {
 function seedFacilities() {
   // Upsert-by-name: new facilities added to data/facilities.json appear after a redeploy,
   // even on databases that were seeded earlier (e.g. Render + Turso snapshots).
+  let rows = [];
+  try { rows = require('./facilities.js'); } catch { }
   const file = path.join(__dirname, 'data', 'facilities.json');
-  if (!fs.existsSync(file)) return;
-  const rows = JSON.parse(fs.readFileSync(file, 'utf8'));
+  if (!rows.length && fs.existsSync(file)) rows = JSON.parse(fs.readFileSync(file, 'utf8'));
+  if (!rows.length) { console.warn('No facility seed data found'); return; }
   const existing = new Set(db.prepare('SELECT lower(name) n FROM facilities').all().map(r => r.n));
   const ins = db.prepare(`INSERT INTO facilities (type,name,address,area,phone,lat,lng,services,rating,hours,accreditation)
     VALUES (@type,@name,@address,@area,@phone,@lat,@lng,@services,@rating,@hours,@accreditation)`);

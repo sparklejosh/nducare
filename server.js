@@ -120,7 +120,7 @@ app.get('/api/ice', async (req, res) => {
   } catch { res.json({ iceServers: STUN }); }
 });
 
-app.get('/api/health', (req, res) => res.json({ ok: true, ts: Date.now(), online: onlineUsers.size, uptime_s: Math.round(process.uptime()), persist: persist.status() }));
+app.get('/api/health', (req, res) => res.json({ ok: true, ts: Date.now(), online: onlineUsers.size, facilities: db.prepare('SELECT COUNT(*) c FROM facilities').get().c, doctors: db.prepare("SELECT COUNT(*) c FROM users WHERE role='doctor'").get().c, uptime_s: Math.round(process.uptime()), persist: persist.status() }));
 
 // ---------- push ----------
 app.get('/api/push/key', (req, res) => res.json({ key: VAPID.publicKey }));
