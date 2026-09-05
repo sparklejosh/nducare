@@ -9,6 +9,9 @@ OpenStreetMap + Leaflet maps, OSRM routing, Nominatim geocoding, SQLite storage.
 
 ---
 
+## Operations dashboard
+`/admin` — live KPIs (patients, consults, revenue, wait times, demand by specialty). Protected by `ADMIN_KEY` env (default `nducare-admin` — change it). Optional `SEED_DEMO_ACTIVITY=1` seeds realistic past activity once.
+
 ## Features
 
 | Area | What's in it |

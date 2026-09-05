@@ -72,7 +72,7 @@ app.use('/api/verify', rateLimit(60, 60000));
 
 // ---------- helpers ----------
 const now = () => Date.now();
-const safeUser = u => u && ({ id: u.id, role: u.role, name: u.name, email: u.email, phone: u.phone, specialty: u.specialty, bio: u.bio, mdcn: u.mdcn, fee: u.fee, avatar_hue: u.avatar_hue, gender: u.gender, dob: u.dob, blood_group: u.blood_group, allergies: u.allergies, lat: u.lat, lng: u.lng, online: onlineUsers.has(u.id) });
+const safeUser = u => u && ({ id: u.id, role: u.role, name: u.name, email: u.email, phone: u.phone, specialty: u.specialty, bio: u.bio, mdcn: u.mdcn, fee: u.fee, avatar_hue: u.avatar_hue, photo: u.photo || null, gender: u.gender, dob: u.dob, blood_group: u.blood_group, allergies: u.allergies, lat: u.lat, lng: u.lng, online: onlineUsers.has(u.id) });
 const genCode = (n = 6) => { const a = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; return Array.from(crypto.randomBytes(n)).map(b => a[b % a.length]).join(''); };
 const sign = u => jwt.sign({ id: u.id, role: u.role }, JWT_SECRET, { expiresIn: '30d' });
 const setAuthCookie = (res, token) => res.cookie('nc_token', token, { httpOnly: true, sameSite: 'lax', secure: IS_PROD, maxAge: 30 * 864e5 });
@@ -97,6 +97,11 @@ function migrate() {
 db.exec(`CREATE TABLE IF NOT EXISTS push_subs (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, endpoint TEXT NOT NULL UNIQUE, sub TEXT NOT NULL, created_at INTEGER DEFAULT (strftime('%s','now')*1000));
 CREATE TABLE IF NOT EXISTS payments (id INTEGER PRIMARY KEY AUTOINCREMENT, appointment_id INTEGER NOT NULL, patient_id INTEGER NOT NULL, amount INTEGER NOT NULL, reference TEXT UNIQUE, status TEXT DEFAULT 'pending', provider TEXT, created_at INTEGER DEFAULT (strftime('%s','now')*1000));`);
 try { db.exec("ALTER TABLE appointments ADD COLUMN paid INTEGER DEFAULT 0"); } catch { }
+try { db.exec("ALTER TABLE users ADD COLUMN photo TEXT"); } catch { }
+// Seed doctor photos (idempotent)
+const photos = { 'adaeze@nducare.ng': '/img/doctors/adaeze.jpg', 'emeka@nducare.ng': '/img/doctors/emeka.jpg', 'ngozi@nducare.ng': '/img/doctors/ngozi.jpg', 'ifeanyi@nducare.ng': '/img/doctors/ifeanyi.jpg', 'chioma@nducare.ng': '/img/doctors/chioma.jpg', 'obinna@nducare.ng': '/img/doctors/obinna.jpg' };
+const up = db.prepare('UPDATE users SET photo=? WHERE email=? AND (photo IS NULL OR photo=\'\')');
+for (const [e, ph] of Object.entries(photos)) up.run(ph, e);
 }
 
 // ---- ICE servers (STUN/TURN) for video calls. TURN is required on mobile/carrier-grade NAT.
@@ -118,6 +123,47 @@ app.get('/api/ice', async (req, res) => {
     iceCache = { at: Date.now(), servers };
     res.json({ iceServers: servers });
   } catch { res.json({ iceServers: STUN }); }
+});
+
+// ---- Admin overview (read-only). Protect with ADMIN_KEY env; ?key= or X-Admin-Key header.
+const ADMIN_KEY = process.env.ADMIN_KEY || 'nducare-admin';
+const adminAuth = (req, res, next) => (req.query.key || req.headers['x-admin-key']) === ADMIN_KEY ? next() : res.status(401).json({ error: 'Admin key required' });
+app.get('/api/admin/overview', adminAuth, (req, res) => {
+  const one = q => db.prepare(q).get();
+  const dayStart = new Date(); dayStart.setHours(0, 0, 0, 0);
+  const t0 = dayStart.getTime(), week = Date.now() - 7 * 864e5;
+  const k = {
+    patients: one("SELECT COUNT(*) c FROM users WHERE role='patient'").c,
+    doctors: one("SELECT COUNT(*) c FROM users WHERE role='doctor'").c,
+    doctors_online: [...onlineUsers].filter(id => db.prepare("SELECT role FROM users WHERE id=?").get(id)?.role === 'doctor').length,
+    online_now: onlineUsers.size,
+    consults_total: one("SELECT COUNT(*) c FROM appointments").c,
+    consults_today: db.prepare("SELECT COUNT(*) c FROM appointments WHERE created_at>=?").get(t0).c,
+    consults_week: db.prepare("SELECT COUNT(*) c FROM appointments WHERE created_at>=?").get(week).c,
+    completed: one("SELECT COUNT(*) c FROM appointments WHERE status='completed'").c,
+    in_call: one("SELECT COUNT(*) c FROM appointments WHERE status='in_call'").c,
+    waiting: one("SELECT COUNT(*) c FROM appointments WHERE status='requested'").c,
+    revenue_total: one("SELECT COALESCE(SUM(amount),0) s FROM payments WHERE status='success'").s,
+    revenue_week: db.prepare("SELECT COALESCE(SUM(amount),0) s FROM payments WHERE status='success' AND created_at>=?").get(week).s,
+    prescriptions: one("SELECT COUNT(*) c FROM care_plans WHERE prescriptions IS NOT NULL AND prescriptions<>'[]'").c,
+    tests_ordered: one("SELECT COUNT(*) c FROM care_plans WHERE tests IS NOT NULL AND tests<>'[]'").c,
+    facilities: one("SELECT COUNT(*) c FROM facilities").c,
+    labs: one("SELECT COUNT(*) c FROM facilities WHERE type='lab'").c,
+    pharmacies: one("SELECT COUNT(*) c FROM facilities WHERE type='pharmacy'").c,
+    avg_rating: one("SELECT ROUND(AVG(stars),2) r FROM reviews").r || null,
+    signups_week: db.prepare("SELECT COUNT(*) c FROM users WHERE created_at>=?").get(week).c,
+  };
+  // avg wait: request -> accept (started_at) and avg call length
+  const w = db.prepare("SELECT AVG(started_at-created_at) a FROM appointments WHERE started_at IS NOT NULL").get().a;
+  const d = db.prepare("SELECT AVG(ended_at-started_at) a FROM appointments WHERE ended_at IS NOT NULL AND started_at IS NOT NULL").get().a;
+  k.avg_wait_min = w ? Math.round(w / 60000) : null; k.avg_call_min = d ? Math.round(d / 60000) : null;
+  // 14-day series
+  const days = []; for (let i = 13; i >= 0; i--) { const s0 = t0 - i * 864e5, s1 = s0 + 864e5; days.push({ day: new Date(s0).toISOString().slice(5, 10), consults: db.prepare("SELECT COUNT(*) c FROM appointments WHERE created_at>=? AND created_at<?").get(s0, s1).c, signups: db.prepare("SELECT COUNT(*) c FROM users WHERE created_at>=? AND created_at<?").get(s0, s1).c }); }
+  const by_specialty = db.prepare("SELECT u.specialty s, COUNT(a.id) c FROM appointments a JOIN users u ON u.id=a.doctor_id GROUP BY u.specialty ORDER BY c DESC").all();
+  const top_doctors = db.prepare("SELECT u.id, u.name, u.specialty, u.photo, u.avatar_hue, COUNT(DISTINCT a.id) consults, (SELECT ROUND(AVG(stars),1) FROM reviews r WHERE r.doctor_id=u.id) rating FROM users u LEFT JOIN appointments a ON a.doctor_id=u.id WHERE u.role='doctor' GROUP BY u.id ORDER BY consults DESC LIMIT 6").all().map(x => ({ ...x, online: onlineUsers.has(x.id) }));
+  const recent = db.prepare("SELECT a.id, a.status, a.created_at, a.reason, p.name patient, d.name doctor, d.specialty FROM appointments a JOIN users p ON p.id=a.patient_id JOIN users d ON d.id=a.doctor_id ORDER BY a.created_at DESC LIMIT 12").all();
+  const top_areas = db.prepare("SELECT area, COUNT(*) c FROM facilities GROUP BY area ORDER BY c DESC LIMIT 8").all();
+  res.json({ ok: true, ts: Date.now(), kpis: k, days, by_specialty, top_doctors, recent, top_areas, uptime_s: Math.round(process.uptime()) });
 });
 
 app.get('/api/health', (req, res) => res.json({ ok: true, ts: Date.now(), online: onlineUsers.size, facilities: db.prepare('SELECT COUNT(*) c FROM facilities').get().c, doctors: db.prepare("SELECT COUNT(*) c FROM users WHERE role='doctor'").get().c, uptime_s: Math.round(process.uptime()), persist: persist.status() }));
@@ -221,7 +267,7 @@ app.get('/api/specialties', (req, res) => res.json({ specialties: db.prepare("SE
 
 // ---------- appointments ----------
 const apptQuery = `SELECT a.*, p.name patient_name, p.avatar_hue patient_hue, p.dob patient_dob, p.gender patient_gender, p.blood_group patient_blood, p.allergies patient_allergies, p.phone patient_phone,
-  d.name doctor_name, d.specialty doctor_specialty, d.avatar_hue doctor_hue, d.fee doctor_fee, d.mdcn doctor_mdcn,
+  d.name doctor_name, d.specialty doctor_specialty, d.avatar_hue doctor_hue, d.photo doctor_photo, p.photo patient_photo, d.fee doctor_fee, d.mdcn doctor_mdcn,
   (SELECT code FROM care_plans c WHERE c.appointment_id=a.id) plan_code
   FROM appointments a JOIN users p ON p.id=a.patient_id JOIN users d ON d.id=a.doctor_id`;
 
@@ -491,6 +537,7 @@ async function main() {
   await persist.restore(DB_PATH);
   db = openDb();
   migrate(); initSecret(); initVapid();
+  if (process.env.SEED_DEMO_ACTIVITY === '1') { try { const n = require('./scripts/demo-activity.js')(db); if (n) console.log('Demo activity seeded:', n); } catch (e) { console.warn('demo seed failed', e.message); } }
   persist.attach(db);
   server.listen(PORT, '0.0.0.0', () => console.log(`NduCare running on http://0.0.0.0:${PORT}`));
   // Optional self keep-alive for free hosts that sleep (Render Free): set KEEPALIVE_URL=https://your-api.onrender.com/api/health
