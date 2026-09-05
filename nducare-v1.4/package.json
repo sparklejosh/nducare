@@ -1,0 +1,27 @@
+{
+  "name": "nducare",
+  "version": "1.0.0",
+  "description": "NduCare \u2014 telemedicine PWA: video consultations, verified care plans, nearest accredited labs & pharmacies",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed:facilities": "node scripts/geocode.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@libsql/client": "^0.18.0",
+    "bcryptjs": "^3.0.2",
+    "better-sqlite3": "^12.4.1",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "leaflet": "^1.9.4",
+    "qrcode": "^1.5.4",
+    "web-push": "^3.6.7",
+    "ws": "^8.18.3"
+  }
+}

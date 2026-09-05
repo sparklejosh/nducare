@@ -1,0 +1,728 @@
+[
+ {
+  "type": "lab",
+  "name": "SYNLAB Nigeria (Enugu)",
+  "address": "26A Forest Crescent, by Parklane Teaching Hospital, GRA, Enugu",
+  "area": "GRA",
+  "phone": "0700 079 6522",
+  "lat": 6.461226,
+  "lng": 7.492389,
+  "services": [
+   "Full Blood Count",
+   "Malaria Parasite",
+   "Widal Test",
+   "Fasting Blood Sugar",
+   "HbA1c",
+   "Lipid Profile",
+   "Liver Function Test",
+   "Kidney Function Test",
+   "Electrolytes (E/U/Cr)",
+   "Urinalysis",
+   "Thyroid Function Test",
+   "HIV Screening",
+   "Hepatitis B Surface Antigen",
+   "Pregnancy Test (βhCG)",
+   "Stool Microscopy",
+   "PSA",
+   "Blood Group & Genotype",
+   "COVID-19 PCR"
+  ],
+  "rating": 4.7,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "lab",
+  "name": "Conquest Medical Imaging",
+  "address": "18 Abakaliki Road, GRA, Enugu",
+  "area": "GRA",
+  "phone": "0703 406 6198",
+  "lat": 6.464723,
+  "lng": 7.514499,
+  "services": [
+   "Ultrasound Scan",
+   "X-Ray",
+   "CT Scan",
+   "MRI",
+   "Mammogram",
+   "ECG",
+   "Echocardiogram",
+   "Bone Densitometry"
+  ],
+  "rating": 4.5,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "lab",
+  "name": "Spectrum Medical Laboratory",
+  "address": "6 Market Road, Ogui New Layout, Enugu",
+  "area": "Ogui New Layout",
+  "phone": "0803 473 0673",
+  "lat": 6.433428,
+  "lng": 7.490851,
+  "services": [
+   "Full Blood Count",
+   "Malaria Parasite",
+   "Widal Test",
+   "Fasting Blood Sugar",
+   "Urinalysis",
+   "Pregnancy Test (βhCG)",
+   "Stool Microscopy",
+   "Blood Group & Genotype",
+   "HIV Screening",
+   "Hepatitis B Surface Antigen"
+  ],
+  "rating": 4.2,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "lab",
+  "name": "Adonai Stelmon Medical Laboratory",
+  "address": "46 Chime Avenue, New Haven, Enugu",
+  "area": "New Haven",
+  "phone": "0703 038 5009",
+  "lat": 6.458506,
+  "lng": 7.511308,
+  "services": [
+   "Full Blood Count",
+   "Malaria Parasite",
+   "Widal Test",
+   "Fasting Blood Sugar",
+   "Lipid Profile",
+   "Liver Function Test",
+   "Kidney Function Test",
+   "Urinalysis",
+   "Hepatitis B Surface Antigen",
+   "HIV Screening",
+   "Blood Group & Genotype",
+   "Semen Analysis"
+  ],
+  "rating": 4.4,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "lab",
+  "name": "Chimos Medical Diagnostic Laboratory",
+  "address": "28 Owerri Road, Asata, Enugu",
+  "area": "Asata",
+  "phone": "0803 393 2381",
+  "lat": 6.446687,
+  "lng": 7.494227,
+  "services": [
+   "Full Blood Count",
+   "Malaria Parasite",
+   "Widal Test",
+   "Ultrasound Scan",
+   "CT Scan",
+   "X-Ray",
+   "Fasting Blood Sugar",
+   "Urinalysis",
+   "Liver Function Test",
+   "Kidney Function Test",
+   "ECG"
+  ],
+  "rating": 4.3,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "lab",
+  "name": "Graceland Laboratories & Scan Centre",
+  "address": "19/35 Chime Avenue, New Haven, Enugu",
+  "area": "New Haven",
+  "phone": "0803 700 4878",
+  "lat": 6.456265,
+  "lng": 7.512602,
+  "services": [
+   "Full Blood Count",
+   "Malaria Parasite",
+   "Ultrasound Scan",
+   "Widal Test",
+   "Fasting Blood Sugar",
+   "Pregnancy Test (βhCG)",
+   "Urinalysis",
+   "Hepatitis B Surface Antigen",
+   "HIV Screening",
+   "Lipid Profile"
+  ],
+  "rating": 4.1,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "lab",
+  "name": "Immaculate Diagnostics",
+  "address": "57 Obioma Street, by Amokwe Bus Stop, Achara Layout, Enugu",
+  "area": "Achara Layout",
+  "phone": "0803 593 3286",
+  "lat": 6.422159,
+  "lng": 7.498689,
+  "services": [
+   "Full Blood Count",
+   "Malaria Parasite",
+   "Ultrasound Scan",
+   "Widal Test",
+   "Fasting Blood Sugar",
+   "Urinalysis",
+   "Stool Microscopy",
+   "Blood Group & Genotype",
+   "Liver Function Test"
+  ],
+  "rating": 4,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "lab",
+  "name": "Landmark Medical Laboratory Services",
+  "address": "168 Agbani Road, by Igbariam Bus Stop, Achara Layout, Enugu",
+  "area": "Achara Layout",
+  "phone": "0803 401 9267",
+  "lat": 6.419403,
+  "lng": 7.498169,
+  "services": [
+   "Full Blood Count",
+   "Malaria Parasite",
+   "Widal Test",
+   "Fasting Blood Sugar",
+   "Urinalysis",
+   "Pregnancy Test (βhCG)",
+   "HIV Screening",
+   "Blood Group & Genotype"
+  ],
+  "rating": 3.9,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "lab",
+  "name": "McChuks Medical Diagnostic Centre",
+  "address": "2 Ohafia Street, by Zik Avenue, Uwani, Enugu",
+  "area": "Uwani",
+  "phone": "0803 669 6165",
+  "lat": 6.42486,
+  "lng": 7.49436,
+  "services": [
+   "Full Blood Count",
+   "Malaria Parasite",
+   "Widal Test",
+   "Fasting Blood Sugar",
+   "HbA1c",
+   "Lipid Profile",
+   "Liver Function Test",
+   "Kidney Function Test",
+   "Electrolytes (E/U/Cr)",
+   "Urinalysis",
+   "Ultrasound Scan",
+   "ECG",
+   "PSA"
+  ],
+  "rating": 4.4,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "lab",
+  "name": "Medichem Laboratories",
+  "address": "1 Udorji Street, Ogui New Layout, Enugu",
+  "area": "Ogui New Layout",
+  "phone": "0803 342 7483",
+  "lat": 6.432331,
+  "lng": 7.499921,
+  "services": [
+   "Full Blood Count",
+   "Malaria Parasite",
+   "Widal Test",
+   "Ultrasound Scan",
+   "Fasting Blood Sugar",
+   "Urinalysis",
+   "Hepatitis B Surface Antigen",
+   "HIV Screening",
+   "Thyroid Function Test"
+  ],
+  "rating": 4.2,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "lab",
+  "name": "Mekon Medical Diagnostic Services",
+  "address": "Bank Avenue, opp. CBN Quarters, Trans-Ekulu, Enugu",
+  "area": "Trans-Ekulu",
+  "phone": "",
+  "lat": 6.477592,
+  "lng": 7.489151,
+  "services": [
+   "Full Blood Count",
+   "Malaria Parasite",
+   "Widal Test",
+   "Fasting Blood Sugar",
+   "Urinalysis",
+   "Pregnancy Test (βhCG)",
+   "Stool Microscopy",
+   "Blood Group & Genotype"
+  ],
+  "rating": 4,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "lab",
+  "name": "Panacea Medical Laboratory",
+  "address": "9 Edozie Street, Uwani, Enugu",
+  "area": "Uwani",
+  "phone": "0803 342 2098",
+  "lat": 6.411732,
+  "lng": 7.501837,
+  "services": [
+   "Full Blood Count",
+   "Malaria Parasite",
+   "Widal Test",
+   "Fasting Blood Sugar",
+   "Urinalysis",
+   "Stool Microscopy",
+   "Microbiology Culture & Sensitivity",
+   "Blood Group & Genotype"
+  ],
+  "rating": 4.1,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "lab",
+  "name": "Praise-Worth Clinics & Diagnostic Centre",
+  "address": "54 Obiagu Road, by Ebe-Lane Bus Stop, Ogui New Layout, Enugu",
+  "area": "Ogui New Layout",
+  "phone": "0803 774 1533",
+  "lat": 6.436206,
+  "lng": 7.499973,
+  "services": [
+   "Full Blood Count",
+   "Malaria Parasite",
+   "Widal Test",
+   "Fasting Blood Sugar",
+   "Lipid Profile",
+   "Liver Function Test",
+   "Kidney Function Test",
+   "Urinalysis",
+   "Ultrasound Scan",
+   "X-Ray",
+   "ECG"
+  ],
+  "rating": 4.6,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "lab",
+  "name": "Heritage Medical Laboratories",
+  "address": "366 Agbani Road, opp. Army Barracks, Garriki, Enugu",
+  "area": "Garriki",
+  "phone": "",
+  "lat": 6.423201,
+  "lng": 7.481654,
+  "services": [
+   "Full Blood Count",
+   "Malaria Parasite",
+   "Widal Test",
+   "Fasting Blood Sugar",
+   "Urinalysis",
+   "Pregnancy Test (βhCG)",
+   "HIV Screening"
+  ],
+  "rating": 3.8,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "lab",
+  "name": "Cynbald Laboratory",
+  "address": "Abia Street, Abakpa Nike, Enugu",
+  "area": "Abakpa Nike",
+  "phone": "",
+  "lat": 6.489691,
+  "lng": 7.507274,
+  "services": [
+   "Full Blood Count",
+   "Malaria Parasite",
+   "Widal Test",
+   "Fasting Blood Sugar",
+   "Urinalysis",
+   "Stool Microscopy",
+   "Blood Group & Genotype",
+   "Hepatitis B Surface Antigen"
+  ],
+  "rating": 3.9,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "lab",
+  "name": "Goldlife Medical Laboratory",
+  "address": "94/108 Nike Road, Enugu",
+  "area": "Abakpa Nike",
+  "phone": "",
+  "lat": 6.474969,
+  "lng": 7.51657,
+  "services": [
+   "Full Blood Count",
+   "Malaria Parasite",
+   "Widal Test",
+   "Fasting Blood Sugar",
+   "Urinalysis",
+   "Pregnancy Test (βhCG)",
+   "HIV Screening",
+   "Blood Group & Genotype",
+   "Liver Function Test"
+  ],
+  "rating": 4,
+  "hours": "07:30-19:00",
+  "accreditation": "MLSCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "HealthPlus Pharmacy (Polo Park)",
+  "address": "Polo Park Mall, Savage Crescent, Abakaliki Road, GRA, Enugu",
+  "area": "GRA",
+  "phone": "",
+  "lat": 6.46133,
+  "lng": 7.497318,
+  "services": [
+   "Prescription dispensing",
+   "Home delivery",
+   "HMO accepted",
+   "Pharmacist consultation",
+   "Cold chain (vaccines/insulin)"
+  ],
+  "rating": 4.6,
+  "hours": "08:00-21:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Medplus Pharmacy (Spar)",
+  "address": "Spar Mall, off Ishielu Street, opp. Michael Okpara Square, Independence Layout, Enugu",
+  "area": "Independence Layout",
+  "phone": "0909 118 6816",
+  "lat": 6.439105,
+  "lng": 7.512102,
+  "services": [
+   "Prescription dispensing",
+   "Home delivery",
+   "HMO accepted",
+   "Pharmacist consultation",
+   "Cold chain (vaccines/insulin)"
+  ],
+  "rating": 4.5,
+  "hours": "08:00-21:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "God's Glory Pharmacy",
+  "address": "62 Chime Avenue, New Haven, Enugu",
+  "area": "New Haven",
+  "phone": "0805 281 8602",
+  "lat": 6.456706,
+  "lng": 7.511426,
+  "services": [
+   "Prescription dispensing",
+   "Pharmacist consultation",
+   "Blood pressure check"
+  ],
+  "rating": 4.3,
+  "hours": "08:00-22:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Best Option Pharmacy",
+  "address": "20 Chime Avenue, New Haven, Enugu",
+  "area": "New Haven",
+  "phone": "0815 568 9719",
+  "lat": 6.459353,
+  "lng": 7.510499,
+  "services": [
+   "Prescription dispensing",
+   "Pharmacist consultation"
+  ],
+  "rating": 4.1,
+  "hours": "08:00-21:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Nigus Pharmacy",
+  "address": "4 Presidential Road, Independence Layout, Enugu",
+  "area": "Independence Layout",
+  "phone": "0807 623 9248",
+  "lat": 6.439284,
+  "lng": 7.508314,
+  "services": [
+   "Prescription dispensing",
+   "Home delivery",
+   "Pharmacist consultation"
+  ],
+  "rating": 4.2,
+  "hours": "08:00-22:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Corex Pharmacy",
+  "address": "1 Mike Torey Lane, Phase 6, Trans-Ekulu, Enugu",
+  "area": "Trans-Ekulu",
+  "phone": "0803 795 3701",
+  "lat": 6.47938,
+  "lng": 7.48958,
+  "services": [
+   "Prescription dispensing",
+   "Pharmacist consultation",
+   "Blood pressure check"
+  ],
+  "rating": 4,
+  "hours": "08:00-21:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Henlil Pharmacy",
+  "address": "Discovery Plaza, 96/98 Chime Avenue, New Haven, Enugu",
+  "area": "New Haven",
+  "phone": "0803 806 0680",
+  "lat": 6.458587,
+  "lng": 7.509103,
+  "services": [
+   "Prescription dispensing",
+   "Home delivery",
+   "Pharmacist consultation",
+   "24 hours"
+  ],
+  "rating": 4.4,
+  "hours": "00:00-23:59",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Addcare Pharmacy",
+  "address": "35 Uduma Street, behind Dome Event Centre, New Haven, Enugu",
+  "area": "New Haven",
+  "phone": "0811 394 1494",
+  "lat": 6.45127,
+  "lng": 7.52725,
+  "services": [
+   "Prescription dispensing",
+   "Pharmacist consultation",
+   "Blood pressure check",
+   "Blood sugar check"
+  ],
+  "rating": 4.2,
+  "hours": "08:00-22:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Renhocks Pharmacy",
+  "address": "83 Park Avenue, GRA, Enugu",
+  "area": "GRA",
+  "phone": "0818 706 5470",
+  "lat": 6.461844,
+  "lng": 7.495042,
+  "services": [
+   "Prescription dispensing",
+   "Home delivery",
+   "HMO accepted",
+   "Pharmacist consultation"
+  ],
+  "rating": 4.3,
+  "hours": "08:00-22:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Marlock Pharmacy",
+  "address": "12/28 Lower Chime Avenue, New Haven, Enugu",
+  "area": "New Haven",
+  "phone": "0803 338 6746",
+  "lat": 6.457013,
+  "lng": 7.508861,
+  "services": [
+   "Prescription dispensing",
+   "Pharmacist consultation"
+  ],
+  "rating": 4,
+  "hours": "08:00-21:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Symbolcare Pharmacy",
+  "address": "11-13 Ezillo Avenue, Independence Layout, Enugu",
+  "area": "Independence Layout",
+  "phone": "0815 410 6392",
+  "lat": 6.437986,
+  "lng": 7.516675,
+  "services": [
+   "Prescription dispensing",
+   "Home delivery",
+   "Pharmacist consultation",
+   "Blood pressure check"
+  ],
+  "rating": 4.3,
+  "hours": "08:00-22:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Stamford Pharmacy",
+  "address": "3 Ogui Road, Achara, Enugu",
+  "area": "Ogui Road",
+  "phone": "0803 300 7369",
+  "lat": 6.459744,
+  "lng": 7.509126,
+  "services": [
+   "Prescription dispensing",
+   "Pharmacist consultation"
+  ],
+  "rating": 3.9,
+  "hours": "08:00-21:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Gabbey Pharmacy",
+  "address": "8 Awkunanaw Street, Uwani, Enugu",
+  "area": "Uwani",
+  "phone": "0803 353 5058",
+  "lat": 6.414993,
+  "lng": 7.497993,
+  "services": [
+   "Prescription dispensing",
+   "Pharmacist consultation",
+   "Blood pressure check"
+  ],
+  "rating": 4.1,
+  "hours": "08:00-21:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Healthblaze Pharmacy",
+  "address": "184 Ogui Road, Achara, Enugu",
+  "area": "Ogui Road",
+  "phone": "0904 020 5711",
+  "lat": 6.459744,
+  "lng": 7.511714,
+  "services": [
+   "Prescription dispensing",
+   "Home delivery",
+   "Pharmacist consultation"
+  ],
+  "rating": 4.2,
+  "hours": "08:00-22:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Alpha Pharmacy",
+  "address": "32 Edinburgh Road, by College Road, Ogui New Layout, Enugu",
+  "area": "Ogui New Layout",
+  "phone": "0809 834 6916",
+  "lat": 6.432863,
+  "lng": 7.497886,
+  "services": [
+   "Prescription dispensing",
+   "HMO accepted",
+   "Pharmacist consultation",
+   "Cold chain (vaccines/insulin)"
+  ],
+  "rating": 4.4,
+  "hours": "08:00-21:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Bertsons Pharmacy",
+  "address": "51 Chime Avenue, New Haven, Enugu",
+  "area": "New Haven",
+  "phone": "0806 267 4213",
+  "lat": 6.456036,
+  "lng": 7.511545,
+  "services": [
+   "Prescription dispensing",
+   "Pharmacist consultation"
+  ],
+  "rating": 4,
+  "hours": "08:00-21:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Modern Pharmacy",
+  "address": "1 Nomeh Drive, Trans-Ekulu, Enugu",
+  "area": "Trans-Ekulu",
+  "phone": "0803 302 7741",
+  "lat": 6.481587,
+  "lng": 7.488807,
+  "services": [
+   "Prescription dispensing",
+   "Pharmacist consultation",
+   "Blood pressure check"
+  ],
+  "rating": 4.1,
+  "hours": "08:00-21:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "More Days Pharmacy",
+  "address": "9 College Road, Abakpa Nike, Enugu",
+  "area": "Abakpa Nike",
+  "phone": "0806 397 2767",
+  "lat": 6.478269,
+  "lng": 7.537048,
+  "services": [
+   "Prescription dispensing",
+   "Pharmacist consultation"
+  ],
+  "rating": 3.9,
+  "hours": "08:00-22:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Leonard Pharmacy & Stores",
+  "address": "10 Bisala Road, Independence Layout, Enugu",
+  "area": "Independence Layout",
+  "phone": "0806 013 8001",
+  "lat": 6.438843,
+  "lng": 7.516293,
+  "services": [
+   "Prescription dispensing",
+   "Pharmacist consultation",
+   "Home delivery"
+  ],
+  "rating": 4,
+  "hours": "08:00-21:00",
+  "accreditation": "PCN"
+ },
+ {
+  "type": "pharmacy",
+  "name": "Zinna Pharmacy",
+  "address": "Prince Plaza, 2 Unije Street, Asata, Enugu",
+  "area": "Asata",
+  "phone": "0902 200 9232",
+  "lat": 6.436703,
+  "lng": 7.495715,
+  "services": [
+   "Prescription dispensing",
+   "Pharmacist consultation"
+  ],
+  "rating": 4,
+  "hours": "08:00-21:00",
+  "accreditation": "PCN"
+ }
+]
